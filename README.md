@@ -1,157 +1,181 @@
-SistemaCrud (ASP.NET Core MVC)
-<p align="left"> <img src="https://img.shields.io/badge/STATUS-Listo-2ea44f" alt="Status"> <img src="https://img.shields.io/badge/.NET-8.0-512BD4" alt=".NET 8"> <img src="https://img.shields.io/badge/ORM-EF%20Core-6db33f" alt="EF Core"> <img src="https://img.shields.io/badge/Licencia-MIT-blue" alt="MIT"> </p>
+SistemaCrud — ASP.NET Core MVC
 
-App MVC con Login/Registro (cookies) y CRUD de Materias protegido.
-Autenticación implementada manualmente (sin Identity): hash + salt de contraseñas y rutas seguras.
+App MVC con Login/Registro por cookies (sin Identity) y CRUD de Materias protegido.
+Contraseñas con salt + hash y rutas seguras mediante autorización.
 
-Índice
+🧭 Índice
 
-Descripción
+Resumen
 
 Demo / Capturas
-
-Estado del proyecto
 
 Tecnologías
 
 Requisitos
 
-Configuración y ejecución
+Configuración
 
-Estructura del proyecto
+Ejecución
 
 Uso
+
+Arquitectura mínima
+
+Estructura del repositorio
+
+Notas de seguridad
 
 Roadmap
 
 Contribuir
 
-Autores
+Autor y licencia
 
-Licencia
+✨ Resumen
 
+Login/Registro implementado a mano con cookies + claims.
 
+Sin Identity: control total y código simple de aprendizaje.
 
-Descripción
+CRUD de Materias (crear, listar, editar, detalles y eliminar).
 
-SistemaCrud es una app educativa de ejemplo construida con ASP.NET Core MVC.
-Incluye:
+Rutas protegidas: sin sesión, el sistema redirige a /Auth/Login.
 
-Registro e inicio de sesión con cookies y claims (sin usar Identity).
+🖼️ Demo / Capturas
 
-Almacenamiento seguro de contraseñas con salt + hash.
+Coloca aquí tu GIF/imagen (o elimina esta sección si no lo usarás).
 
-Protección de rutas: el CRUD de materias solo es accesible estando autenticado.
+docs/
+ ├─ demo.gif
+ ├─ login.png
+ ├─ materias-index.png
+ └─ materias-create.png
 
-CRUD completo de Materias: crear, listar, editar, ver y eliminar.
+![Demo](docs/demo.gif)
 
-Demo / Capturas
+🧰 Tecnologías
 
-GIF corto del flujo: Login → acceso a /Materias → Crear/Editar/Eliminar → Logout
-(Coloca aquí tu GIF/imagen, por ejemplo docs/demo.gif o docs/captura.png)
+ASP.NET Core MVC (.NET 8)
 
+Entity Framework Core (migraciones y DbContext)
 
-
-Incluir imágenes/gifs ayuda a entender las funcionalidades de forma visual. 
-Alura
-
-Estado del proyecto
-
-✅ Listo para uso y revisión (demo universitaria).
-
-Incluir el estado es recomendado para lectores y reclutadores. 
-Alura
-
-Tecnologías
-
-.NET 8 + ASP.NET Core MVC
-
-Entity Framework Core
-
-Bootstrap 5
-
-SQL Server
-
-Listar tecnologías es una forma clara de mostrar qué usaste/estudiaste. 
-Alura
-
-Requisitos
-
-.NET 8 SDK
+Bootstrap 5 (estilos)
 
 SQL Server (LocalDB/SQLEXPRESS o instancia propia)
 
+📦 Requisitos
+
+.NET 8 SDK
+
+SQL Server (o LocalDB / SQLEXPRESS)
+
 (Opcional) Visual Studio 2022 / VS Code
 
-Configuración y ejecución
+⚙️ Configuración
 
-Clonar el repo
+Clonar
 
 git clone https://github.com/TU_USUARIO/SistemaCrud.git
 cd SistemaCrud
 
 
-Crear tu appsettings.json (no se versiona):
-
-Copia la plantilla:
+Crear tu appsettings.json
+Copia la plantilla y edita la cadena de conexión:
 
 SistemaCrud/appsettings.example.json → SistemaCrud/appsettings.json
 
-Edita la cadena de conexión DefaultConnection.
 
-Crear la base de datos con EF Core
+Migraciones / Base de datos
+Crea las tablas con EF Core:
 
-# Visual Studio - Package Manager Console:
+# Visual Studio: Package Manager Console
 Update-Database
 
-# (CLI alternativo)
+# o CLI (si usas dotnet-ef)
 dotnet ef database update --project SistemaCrud/SistemaCrud.csproj
 
-Imagenes
-
-<img width="1327" height="718" alt="image" src="https://github.com/user-attachments/assets/2dcf5029-82d4-4029-82f0-2c50ba395c04" />
-
-<img width="902" height="442" alt="image" src="https://github.com/user-attachments/assets/706722f3-93d8-4f75-b257-613db0d60e7b" />
-
-Ejecutar
-
+▶️ Ejecución
 dotnet run --project SistemaCrud/SistemaCrud.csproj
-# Abre https://localhost:xxxx
+# Abre el navegador en https://localhost:xxxx
 
+👩‍💻 Uso
 
-La sección de “Acceso/Ejecución” es clave: explica cómo descargar, abrir y correr el proyecto localmente. 
-Alura
+Registro: /Auth/Register
 
-Estructura del proyecto
+Login: /Auth/Login
+
+CRUD protegido: /Materias
+
+Logout: botón “Salir” (navbar)
+
+Si intentas /Materias sin sesión, el sistema te enviará a /Auth/Login.
+
+🧱 Arquitectura mínima
+Navegador
+   │
+   ├── Cookies de autenticación (sesión del usuario)
+   │
+ASP.NET Core MVC
+   ├── AuthController   → Registro, Login, Logout (cookies + claims)
+   ├── MateriasController [Authorize] → CRUD protegido
+   ├── Views (Razor)    → Auth/*, Materias/*, Shared/*
+   └── ApplicationDbContext (EF Core) → Usuarios, Materias
+
+📁 Estructura del repositorio
 SistemaCrud/
 ├─ SistemaCrud.sln
 └─ SistemaCrud/
    ├─ Controllers/
-   │  ├─ AuthController.cs         # Login / Register / Logout (cookies)
-   │  └─ MateriasController.cs     # CRUD protegido
+   │  ├─ AuthController.cs          # Login/Registro/Logout (cookies)
+   │  └─ MateriasController.cs      # CRUD completo protegido
    ├─ Models/
-   │  ├─ Usuario.cs                # Email, PasswordHash, PasswordSalt
-   │  └─ Materia.cs                # Nombre, Descripcion
+   │  ├─ Usuario.cs                 # Email, PasswordHash, PasswordSalt, FechaRegistro
+   │  └─ Materia.cs                 # Nombre, Descripcion
    ├─ Data/
-   │  └─ ApplicationDbContext.cs   # DbSet<Usuario>, DbSet<Materia>
+   │  └─ ApplicationDbContext.cs    # DbSet<Usuario>, DbSet<Materia>
    ├─ Security/
-   │  └─ PasswordHasher.cs         # salt + hash (SHA-256)
+   │  └─ PasswordHasher.cs          # salt + hash (SHA-256)
    ├─ Views/
    │  ├─ Auth/ (Login, Register)
    │  ├─ Materias/ (Index, Create, Edit, Details, Delete)
-   │  └─ Shared/ (_Layout, _ValidationScriptsPartial, _Alerts)
-   ├─ wwwroot/                     # CSS/JS/Bootstrap
+   │  └─ Shared/ (_Layout, _Alerts, _ValidationScriptsPartial)
+   ├─ wwwroot/                      # CSS/JS/Bootstrap
+   ├─ Migrations/                   # EF Core migrations
    ├─ appsettings.example.json
    └─ Program.cs
 
-Uso
+🔒 Notas de seguridad
 
-Ir a /Auth/Register y crear una cuenta.
+No se guardan contraseñas en texto plano: se usa salt + hash.
 
-Iniciar sesión en /Auth/Login.
+Para producción, considera PBKDF2 / BCrypt / Argon2 y HTTPS.
 
-Acceder a /Materias y usar el CRUD.
+appsettings.json no se versiona; usa la plantilla appsettings.example.json.
 
-Cerrar sesión con el botón Salir.
+🗺️ Roadmap
 
-(Prueba de protección) Sin sesión, entrar a /Materias → redirige a /Auth/Login.
+ Asociar materias por usuario (multiusuario real).
+
+ Paginación y filtros en el listado de materias.
+
+ Validaciones adicionales y mensajes localizados.
+
+ Cambiar hashing a PBKDF2/BCrypt/Argon2.
+
+🤝 Contribuir
+
+Haz fork del proyecto.
+
+Crea una rama: git checkout -b feature/nueva-funcionalidad.
+
+Commit: git commit -m "feat: agrega X".
+
+Push: git push origin feature/nueva-funcionalidad.
+
+Abre un Pull Request.
+
+👤 Autor y licencia
+
+Autor: Tu Nombre — @tuusuario
+
+Licencia: MIT (ver LICENSE)
