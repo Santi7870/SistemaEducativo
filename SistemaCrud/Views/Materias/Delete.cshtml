@@ -1,0 +1,21 @@
+﻿@model SistemaCrud.Models.Materia
+@{
+    ViewData["Title"] = "Eliminar";
+}
+<h2>Eliminar</h2>
+
+<p>¿Seguro deseas eliminar esta materia?</p>
+
+<dl class="row">
+    <dt class="col-sm-2">Nombre</dt>
+    <dd class="col-sm-10">@Model.Nombre</dd>
+    <dt class="col-sm-2">Descripción</dt>
+    <dd class="col-sm-10">@Model.Descripcion</dd>
+</dl>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button class="btn btn-danger">Eliminar</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+</form>
+

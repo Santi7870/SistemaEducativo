@@ -1,0 +1,31 @@
+# VS / .NET
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build
+bin/
+obj/
+Debug/
+Release/
+
+# Publicaciones
+*.publish.xml
+*.pubxml
+*.pubxml.user
+
+# Logs / coverage
+*.log
+TestResult*/
+coverage*/
+
+# Node (por si acaso)
+node_modules/
+*.cache/
+
+# Secretos locales
+**/appsettings.Development.json
+**/appsettings.Local.json
+**/appsettings.json

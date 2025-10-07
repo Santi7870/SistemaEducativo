@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Inicio";
+    var isAuth = User?.Identity?.IsAuthenticated ?? false;
+    var userName = User?.Identity?.Name ?? "";
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+
+            <div class="text-center mb-4">
+                <h1 class="h3 mb-1">SistemaCrud</h1>
+                <p class="text-muted mb-0">
+                    App MVC con <strong>Login/Registro</strong> y <strong>CRUD de Materias</strong> protegido.
+                </p>
+            </div>
+
+            <div class="card p-3">
+                @if (!isAuth)
+                {
+                    <p class="mb-3">
+                        Para gestionar las materias, primero debes iniciar sesión.
+                    </p>
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-primary" asp-controller="Auth" asp-action="Login">Iniciar sesión</a>
+                        <a class="btn btn-outline-primary" asp-controller="Auth" asp-action="Register">Crear cuenta</a>
+                        <a class="btn btn-link" asp-controller="Materias" asp-action="Index">Ir al CRUD (requiere login)</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info mb-3" role="alert">
+                        Bienvenido/a <strong>@userName</strong>. Ya puedes gestionar tus materias.
+                    </div>
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-primary" asp-controller="Materias" asp-action="Index">Abrir CRUD de Materias</a>
+                        <form asp-controller="Auth" asp-action="Logout" method="post" class="d-grid">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-outline-secondary">Cerrar sesión</button>
+                        </form>
+                    </div>
+                }
+            </div>
+
+            <div class="mt-4 small text-muted">
+                <ul class="mb-0">
+                    <li>Las rutas del CRUD están protegidas: sin sesión, redirige a Login.</li>
+                    <li>Contraseñas guardadas con hash + salt (no en texto plano).</li>
+                    <li>Datos manejados con Entity Framework Core.</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
