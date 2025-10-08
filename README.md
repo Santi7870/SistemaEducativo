@@ -44,7 +44,9 @@ Rutas protegidas: sin sesión, el sistema redirige a /Auth/Login.
 🖼️ Demo / Capturas
 
 
+VIDEO
 
+https://youtu.be/TfqdsGl-c2E
 
 🧰 Tecnologías
 
