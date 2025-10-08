@@ -136,8 +136,8 @@ Push: git push origin feature/nueva-funcionalidad.
 
 Abre un Pull Request.
 
-👤 Autor y licencia
+👤 Autor
 
-Autor: Tu Nombre — @tuusuario
+Autor: Santiago Panchi
 
-Licencia: MIT (ver LICENSE)
+Ingenieria de Software
