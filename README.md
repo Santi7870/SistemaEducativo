@@ -43,15 +43,8 @@ Rutas protegidas: sin sesión, el sistema redirige a /Auth/Login.
 
 🖼️ Demo / Capturas
 
-Coloca aquí tu GIF/imagen (o elimina esta sección si no lo usarás).
 
-docs/
- ├─ demo.gif
- ├─ login.png
- ├─ materias-index.png
- └─ materias-create.png
 
-![Demo](docs/demo.gif)
 
 🧰 Tecnologías
 
@@ -75,7 +68,7 @@ SQL Server (o LocalDB / SQLEXPRESS)
 
 Clonar
 
-git clone https://github.com/TU_USUARIO/SistemaCrud.git
+git clone https://github.com/Santi7870/SistemaEducativo.git
 cd SistemaCrud
 
 
@@ -110,39 +103,6 @@ Logout: botón “Salir” (navbar)
 
 Si intentas /Materias sin sesión, el sistema te enviará a /Auth/Login.
 
-🧱 Arquitectura mínima
-Navegador
-   │
-   ├── Cookies de autenticación (sesión del usuario)
-   │
-ASP.NET Core MVC
-   ├── AuthController   → Registro, Login, Logout (cookies + claims)
-   ├── MateriasController [Authorize] → CRUD protegido
-   ├── Views (Razor)    → Auth/*, Materias/*, Shared/*
-   └── ApplicationDbContext (EF Core) → Usuarios, Materias
-
-📁 Estructura del repositorio
-SistemaCrud/
-├─ SistemaCrud.sln
-└─ SistemaCrud/
-   ├─ Controllers/
-   │  ├─ AuthController.cs          # Login/Registro/Logout (cookies)
-   │  └─ MateriasController.cs      # CRUD completo protegido
-   ├─ Models/
-   │  ├─ Usuario.cs                 # Email, PasswordHash, PasswordSalt, FechaRegistro
-   │  └─ Materia.cs                 # Nombre, Descripcion
-   ├─ Data/
-   │  └─ ApplicationDbContext.cs    # DbSet<Usuario>, DbSet<Materia>
-   ├─ Security/
-   │  └─ PasswordHasher.cs          # salt + hash (SHA-256)
-   ├─ Views/
-   │  ├─ Auth/ (Login, Register)
-   │  ├─ Materias/ (Index, Create, Edit, Details, Delete)
-   │  └─ Shared/ (_Layout, _Alerts, _ValidationScriptsPartial)
-   ├─ wwwroot/                      # CSS/JS/Bootstrap
-   ├─ Migrations/                   # EF Core migrations
-   ├─ appsettings.example.json
-   └─ Program.cs
 
 🔒 Notas de seguridad
 
